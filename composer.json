@@ -1,5 +1,5 @@
 {
-    "name": "recca0120/laravelpassport",
+    "name": "recca0120/laravelpassport-provider",
     "description": "LaravelPassport OAuth2 Provider for Laravel Socialite",
     "license": "MIT",
     "authors": [{
