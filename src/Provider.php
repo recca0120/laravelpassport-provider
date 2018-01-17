@@ -24,7 +24,7 @@ class Provider extends AbstractProvider implements ProviderInterface
      */
     public static function additionalConfigKeys()
     {
-        return ['host', 'authorize_uri', 'token_uri', 'userinfo_uri'];
+        return ['host', 'authorize_uri', 'token_uri', 'userinfo_uri', 'userinfo_key'];
     }
 
     /**
@@ -76,11 +76,14 @@ class Provider extends AbstractProvider implements ProviderInterface
      */
     protected function mapUserToObject(array $user)
     {
-        return (new User())->setRaw($user)->map([
-            'id' => Arr::get($user, 'id'),
-            'nickname' => Arr::get($user, 'username'),
-            'name' => Arr::get($user, 'name'),
-            'email' => Arr::get($user, 'email'),
+        $key = $this->getConfig('userinfo_key', null);
+        $data = is_null($key) === true ? $user : Arr::get($user, $key, []);
+
+        return (new User())->setRaw($data)->map([
+            'id' => Arr::get($data, 'id'),
+            'nickname' => Arr::get($data, 'username'),
+            'name' => Arr::get($data, 'name'),
+            'email' => Arr::get($data, 'email'),
             'avatar' => Arr::get($user, 'avatar'),
         ]);
     }
