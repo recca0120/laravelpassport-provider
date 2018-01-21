@@ -26,7 +26,6 @@ class ProviderTest extends TestCase
         ]);
 
         $provider = new Provider($request, $clientId, $clientSecret, $redirectUrl);
-        var_dump(get_class($provider), get_class_methods($provider));
         $provider->stateless();
         $provider->setHttpClient($httpClient);
         $provider->setConfig($config);
